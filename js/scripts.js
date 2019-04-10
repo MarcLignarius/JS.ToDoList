@@ -1,36 +1,35 @@
-// Business Logic for AddressBook ----------------------------------------------
-
-function AddressBook() {
-  this.contacts = [],
-  this.currentId = 0
+// Business Logic for ToDoList ---------
+function ToDoList() {
+  this.tasks = [],
+  this.currentTaskId = 0
 }
 
-AddressBook.prototype.addContact = function(contact) {
-  contact.id = this.assignId();
-  this.contacts.push(contact);
+ToDoList.prototype.addTask = function(task) {
+  task.id = this.assignTaskId();
+  this.tasks.push(task);
 }
 
-AddressBook.prototype.assignId = function() {
-  this.currentId += 1;
-  return this.currentId;
+ToDoList.prototype.assignTaskId = function() {
+  this.currentTaskId += 1;
+  return this.currentTaskId;
 }
 
-AddressBook.prototype.findContact = function(id) {
-  for (var i=0; i< this.contacts.length; i++) {
-    if (this.contacts[i]) {
-      if (this.contacts[i].id == id) {
-        return this.contacts[i];
+ToDoList.prototype.findTask = function(id) {
+  for (var i=0; i< this.tasks.length; i++) {
+    if (this.tasks[i]) {
+      if (this.tasks[i].id == id) {
+        return this.tasks[i];
       }
     }
   };
   return false;
 }
 
-AddressBook.prototype.deleteContact = function(id) {
-  for (var i=0; i< this.contacts.length; i++) {
-    if (this.contacts[i]) {
-      if (this.contacts[i].id == id) {
-        delete this.contacts[i];
+ToDoList.prototype.deleteTask = function(id) {
+  for (var i=0; i< this.tasks.length; i++) {
+    if (this.tasks[i]) {
+      if (this.tasks[i].id == id) {
+        delete this.tasks[i];
         return true;
       }
     }
@@ -38,65 +37,52 @@ AddressBook.prototype.deleteContact = function(id) {
   return false;
 }
 
-// Business Logic for Contacts -------------------------------------------------
+//Business Logic for tasks ---------
 
-function Contact(firstName, lastName, phoneNumber) {
-  this.firstName = firstName,
-  this.lastName = lastName,
-  this.phoneNumber = phoneNumber
+function Task(inputtedTask) {
+  this.inputtedTask = inputtedTask
 }
 
-Contact.prototype.fullName = function() {
-  return this.firstName + " " + this.lastName;
-}
+// User Interface Logic ---------
+var toDoList = new ToDoList();
 
-// User Interface Logic --------------------------------------------------------
-
-var addressBook = new AddressBook();
-
-function displayContactDetails(addressBookToDisplay) {
-  var contactsList = $("ul#contacts");
-  var htmlForContactInfo = "";
-  addressBookToDisplay.contacts.forEach(function(contact) {
-    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+function displayTaskDetails(toDoListToDisplay) {
+  var tasksList = $("ul#tasks");
+  var htmlForTaskInfo = "";
+  toDoListToDisplay.tasks.forEach(function(task) {
+    htmlForTaskInfo += "<li id=" + task.id + ">" + task.inputtedTask + "</li>";
   });
-  contactsList.html(htmlForContactInfo);
+  tasksList.html(htmlForTaskInfo);
 };
 
-function showContact(contactId) {
-  var contact = addressBook.findContact(contactId);
-  $("#show-contact").show();
-  $(".first-name").html(contact.firstName);
-  $(".last-name").html(contact.lastName);
-  $(".phone-number").html(contact.phoneNumber);
+function showTask(taskId) {
+  var task = toDoList.findTask(taskId);
+  $("#show-task").show();
+  $(".inputtedTask").html(task.inputtedTask);
   var buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
+  buttons.append("<button class='deleteButton' id=" + task.id + ">Done!</button>");
 }
 
-function attachContactListeners() {
-  $("ul#contacts").on("click", "li", function() {
-    showContact(this.id);
+function attachTaskListeners() {
+  $("ul#tasks").on("click", "li", function() {
+    showTask(this.id);
   });
   $("#buttons").on("click", ".deleteButton", function() {
-   addressBook.deleteContact(this.id);
-   $("#show-contact").hide();
-   displayContactDetails(addressBook);
- });
+    toDoList.deleteTask(this.id);
+    $("#show-task").hide();
+    displayTaskDetails(toDoList);
+  });
 };
 
 $(document).ready(function() {
-  attachContactListeners();
-  $("form#new-contact").submit(function(event) {
+  attachTaskListeners();
+  $("form#add-task").submit(function(event) {
     event.preventDefault();
-    var inputtedFirstName = $("input#new-first-name").val();
-    var inputtedLastName = $("input#new-last-name").val();
-    var inputtedPhoneNumber = $("input#new-phone-number").val();
-    $("input#new-first-name").val("");
-    $("input#new-last-name").val("");
-    $("input#new-phone-number").val("");
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
-    addressBook.addContact(newContact);
-    displayContactDetails(addressBook);
+    var inputtedTask = $("input#inputtedTask").val();
+    $("input#inputtedTask").val("");
+    var newTask = new Task(inputtedTask);
+    toDoList.addTask(newTask);
+    displayTaskDetails(toDoList);
   })
 })

@@ -1,3 +1,9 @@
-#show-contact {
+#show-task {
   display: none;
+}
+
+#show-task button {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
 }

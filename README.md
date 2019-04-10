@@ -1,4 +1,4 @@
-# _Address Book_
+# _To Do List_
 
 #### _Epidocus Intro to Programming Week 4, 04/08/2019_
 
@@ -6,20 +6,20 @@
 
 ## Description
 
-_Use of Javascript objects and event delegation to build an Address Book_
+_Use of Javascript objects and constructors to build a To Do List_
 
 ## Setup/Installation Requirements
 
 * _Clone from GitHub_
 * _Open index.html_
+* _Alternatively, launch [https://marclignarius.github.io/todolist](https://marclignarius.github.io/todolist)_
 
 ## Specs
 
 | Behavior | Input | Output |
 | ------------- |:-------------:| -----:|
-| Program tracks a user's first name, last name and phone number | John Doe 123-456-7890 | John Doe |
-| Program displays contact information upon click | John Doe (click) | First Name: John, Last Name: Doe, Phone Number: 123-456-7890 |
-| Program deletes a contact upon click | John Doe / Delete | true |
+| Program tracks a user's input of a to do task | Walk the dog | Walk the dog |
+| Program deletes a to do task upon click | John Doe / Delete | true |
 
 ## Known Bugs
 
