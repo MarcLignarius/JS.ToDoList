@@ -19,7 +19,7 @@ _Use of Javascript objects and constructors to build a To Do List_
 | Behavior | Input | Output |
 | ------------- |:-------------:| -----:|
 | Program tracks a user's input of a to do task | Walk the dog | Walk the dog |
-| Program deletes a to do task upon click | John Doe / Delete | true |
+| Program deletes a to do task upon click | Walk the dog / Delete | true |
 
 ## Known Bugs
 
